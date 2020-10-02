@@ -9,22 +9,23 @@
 
 <body>
     <header>
-        <nav class="navbar fixed-top  navbar-dark pink " style="background-color: cornflowerblue">
-            <a class="navbar-brand" href="#"><strong>Twitter CRUD Operations</strong></a>
-            <span class="fa-stack  fa-inverse fa-2x  fa-lg">
-                <i class="fa fa-square-o fa-inverse  fa-stack-2x"></i>
-                <i class="fa fa-twitter fa-inverse  fa-stack-1x"></i>
-            </span>
+        <nav class="navbar fixed-top  navbar-dark  " style="background-color: cornflowerblue">
+            <a class="navbar-brand" href="#">
+                <span class="fa-stack  fa-inverse  fa-md">
+                    <i class="fa fa-square-o fa-inverse  fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-inverse  fa-stack-1x"></i>
+                </span>
+                <strong>Twitter CRUD Operations</strong>
+            </a>
 
         </nav>
 
     </header>
-    <div class="fluid">
+    <div class=" block pt-5 mt-5">
         <div class=" row  ">
 
-            <div class=" col-lg-3  jumbotron card" style="width:400px ">
+            <div class=" col-lg-3  jumbotron card" style="width:400px ;display:inline;">
                 <h2>Find Tweets</h2>
-
                 <div class="card-body">
                     <form action="getTweets" , method="post">
                         <div class="form-group">
@@ -36,44 +37,36 @@
                             <label for="count">Count</label>
                             <input type="number" name="count" class="form-control" placeholder="Enter Count" id="count">
                         </div>
-
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
-
                 </div>
             </div>
-            <div class=" col-lg-6">
+            <div class=" col-lg-6  " , style="display:inline;">
                 {{#if tweetResult}}
-                <h2>Tweets are </h2>
+                <h2 class="text-center">Tweets of {{tweetResult.[1].user}} </h2>
 
-                <div>
-                    <div class="fluid">
-                        <table class="table ">
-                            <thead>
-                                <tr>
-                                    <th>Tweet</th>
-                                    <th>Time</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            {{#each tweetResult}}
-                            <tbody>
-                                <tr>
-                                    <td>{{tweet}}</td>
-                                    <td>{{str_id}}</td>
-                                    <td>
-                                        <i class="fa fa-trash tweetId" name="tweetId" value={{str_id}} id="tweetId"></i>
-                                    </td>
-                                </tr>
+                <table class=" table " style="table-layout:fixed; ">
+                    {{#each tweetResult}}
+                    <tbody>
+                        <tr>
+                            <td>{{tweet}}</td>
 
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                            <td>
+                                <i class="fa fa-trash  float-right tweetId" name="tweetId" value={{str_id}}
+                                    id="tweetId"></i>
+                            </td>
+
+                        </tr>
+                        <br />
+                        <br />
+
+                    </tbody>
+                </table>
+
                 {{/each}}
                 {{/if}}
             </div>
-            <div class=" col-lg-3 float-right jumbotron   card" style="width:400px  ">
+            <div class="col-lg-3  pt-5  jumbotron card" style="width:400px  ">
                 <h2>Post A Tweet</h2>
                 <div class="card-body">
                     <form action="postTweet" , method="post">

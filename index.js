@@ -59,11 +59,14 @@ app.post("/postTweet", function (req, res) {
 
   client.post("statuses/update", params, function (err, data, response) {
     if (!err) {
-      console.log("1", err);
+      console.log("Tweet Posted");
+
+      res.status(200).send("Welcome");
+      // res.send('<script>alert("Hello")</script>');
     } else if (data) {
       console.log("@2222222", data);
     } else {
-      console.log("in last", res);
+      console.log("in last", err);
     }
   });
 });
@@ -79,6 +82,8 @@ app.post("/deleteTweet", function (req, res) {
   ) {
     if (!err) {
       console.log("1", err);
+
+      res.status(200).send("SuccessFul deleted");
     } else if (data) {
       console.log("@2222222", data);
     } else {
