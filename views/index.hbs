@@ -4,16 +4,19 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
     <header>
         <nav class="navbar fixed-top  navbar-dark pink " style="background-color: cornflowerblue">
             <a class="navbar-brand" href="#"><strong>Twitter CRUD Operations</strong></a>
+            <span class="fa-stack  fa-inverse fa-2x  fa-lg">
+                <i class="fa fa-square-o fa-inverse  fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-inverse  fa-stack-1x"></i>
+            </span>
+
         </nav>
-        <li class="nav-item">
-            <a class="nav-link"><i class="fab fa-twitter"></i></a>
-        </li>
 
     </header>
     <div class="fluid">
@@ -39,18 +42,38 @@
 
                 </div>
             </div>
-            <div class=" col-lg-3">
+            <div class=" col-lg-6">
                 {{#if tweetResult}}
                 <h2>Tweets are </h2>
-                {{#each tweetResult}}
+
                 <div>
-                    <p>{{tweet}}</p>
-                    <p>{{date}}</p>
+                    <div class="fluid">
+                        <table class="table ">
+                            <thead>
+                                <tr>
+                                    <th>Tweet</th>
+                                    <th>Time</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            {{#each tweetResult}}
+                            <tbody>
+                                <tr>
+                                    <td>{{tweet}}</td>
+                                    <td>{{str_id}}</td>
+                                    <td>
+                                        <i class="fa fa-trash tweetId" name="tweetId" value={{str_id}} id="tweetId"></i>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 {{/each}}
                 {{/if}}
             </div>
-            <div class=" col-lg-3 jumbotron float-right  card" style="width:400px  ">
+            <div class=" col-lg-3 float-right jumbotron   card" style="width:400px  ">
                 <h2>Post A Tweet</h2>
                 <div class="card-body">
                     <form action="postTweet" , method="post">
@@ -63,28 +86,25 @@
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
-
-
             </div>
-            <div class=" col-lg-3 jumbotron float-right  card" style="width:400px  ">
-                <h2>Delete A Tweet</h2>
-                <div class="card-body">
-                    <form action="deleteTweet" , method="post">
-                        <div class="form-group">
-                            <label for="twitterHandle">Write here... </label>
-                            <textarea class="form-control" rows="5" placeholder="Enter TwitterHandle.." name="tweetId"
-                                id="tweetText">
-                            </textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
 
-
-            </div>
         </div>
     </div>
 </body>
 <script>
+    $(document).ready(function () {
+        $('#tweetId').on('click', function (e) {
+            var value = $(this).attr('value');
+            console.log("value", value);
+
+            $.post('deleteTweet', { tweetId: value },
+                function (returnedData) {
+                    console.log(returnedData);
+                });
+        })
+    })
+
+
+
 
 </script>

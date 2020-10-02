@@ -55,42 +55,36 @@ app.post("/getTweets", function (req, res) {
 app.post("/postTweet", function (req, res) {
   const tweetText = req.body.tweetText;
   console.log("tweetText", tweetText);
+  const params = { status: tweetText };
 
-  client
-    .post("statuses/update", { status: { tweetText } })
-    .then(function (tweet) {
-      console.log("i'm inside POST ******");
-      console.log(tweet);
-      res.send("Its sucesss");
-    })
-    .catch(function (error) {
-      ("i'm inside ERRORRRRRRRR ******");
-      throw error;
-    });
+  client.post("statuses/update", params, function (err, data, response) {
+    if (!err) {
+      console.log("1", err);
+    } else if (data) {
+      console.log("@2222222", data);
+    } else {
+      console.log("in last", res);
+    }
+  });
 });
 
 //api to delete Tweet
 
 app.post("/deleteTweet", function (req, res) {
-  console.log("button inside delete server  is clicked!!!!");
-  //client.post("statuses/destroy/id:", { id: "1311460255146995712" 1311460255146995700}, function (
-  tweetId = req.body.tweetId;
-  console.log("tweetId", tweetId);
-  client.post(
-    `statuses/destroy/1309660158054731776.json`,
-    // {
-    //   id: { tweetId },
-    // },
-    (err, data, response) => {
-      if (data) {
-        console.log(data);
-      } else if (response) {
-        console.log("inside res");
-      } else {
-        console.log("tweet deleted!");
-      }
+  const tweetId = req.body.tweetId;
+  client.post(`statuses/destroy/${tweetId}.json`, function (
+    err,
+    data,
+    response
+  ) {
+    if (!err) {
+      console.log("1", err);
+    } else if (data) {
+      console.log("@2222222", data);
+    } else {
+      console.log("in last", res);
     }
-  );
+  });
 });
 
 app.listen(3000, () => {
