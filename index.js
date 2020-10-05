@@ -19,7 +19,7 @@ app.get("/", function (req, res) {
 });
 const message = false;
 
-//api to getTweets
+//api to getTweets - implemented by Rajendran Babu
 
 app.post("/getTweets", function (req, res) {
   const screen_name = req.body.twitterHandle;
@@ -57,7 +57,8 @@ app.post("/getTweets", function (req, res) {
   });
 });
 
-//api to Post Tweet
+//api to Post Tweet - implemented by - Archana Shokeen
+
 app.post("/postTweet", function (req, res) {
   const tweetText = req.body.tweetText;
   console.log("tweetText", tweetText);
@@ -83,7 +84,7 @@ app.post("/postTweet", function (req, res) {
   });
 });
 
-//api to delete Tweet
+//api to delete Tweet - implemented by- Eric Cheng
 
 app.post("/deleteTweet", function (req, res) {
   const tweetId = req.body.tweetId;
@@ -119,6 +120,6 @@ app.post("/deleteTweet", function (req, res) {
   });
 });
 
-app.listen(3000, () => {
+module.exports = app.listen(3000, () => {
   console.log("Server Started");
 });
