@@ -14,9 +14,10 @@ const client = new Twitter({
 app.set("view engine", "hbs");
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get("/", function (rew, res) {
+app.get("/", function (req, res) {
   res.render("index");
 });
+const message = false;
 
 //api to getTweets
 
@@ -46,7 +47,12 @@ app.post("/getTweets", function (req, res) {
       console.log("TweetResult", tweetResult);
       res.render("index", { tweetResult: tweetResult });
     } else {
-      console.log("inside erroe");
+      console.log("inside error");
+      res.render("index", {
+        message: true,
+        messageText: "Some error occured!! Please try again.",
+        className: "alert-danger",
+      });
     }
   });
 });
@@ -56,17 +62,23 @@ app.post("/postTweet", function (req, res) {
   const tweetText = req.body.tweetText;
   console.log("tweetText", tweetText);
   const params = { status: tweetText };
-
   client.post("statuses/update", params, function (err, data, response) {
     if (!err) {
       console.log("Tweet Posted");
-
-      res.status(200).send("Welcome");
-      // res.send('<script>alert("Hello")</script>');
+      res.render("index", {
+        message: true,
+        messageText: "Tweet Post successful !!",
+        className: "alert-success",
+      });
     } else if (data) {
-      console.log("@2222222", data);
+      console.log(data);
+      res.render("index", {
+        message: true,
+        messageText: "Some error occured!! Please try again.",
+        className: "alert-danger",
+      });
     } else {
-      console.log("in last", err);
+      console.log(err);
     }
   });
 });
@@ -81,13 +93,28 @@ app.post("/deleteTweet", function (req, res) {
     response
   ) {
     if (!err) {
-      console.log("1", err);
+      console.log("delete succesfull");
 
-      res.status(200).send("SuccessFul deleted");
+      res.render("index", {
+        message: true,
+        messageText: "Tweet deleted succesfully!, please refresh the page.",
+        className: "alert-success",
+      });
+      res.json({ message: true, redirect: "/" });
     } else if (data) {
-      console.log("@2222222", data);
+      console.log("data error", data);
+      res.render("index", {
+        message: true,
+        messageText: "Some error occured!! Please try again.",
+        className: "alert-danger",
+      });
     } else {
-      console.log("in last", res);
+      console.log(res);
+      res.render("index", {
+        message: true,
+        messageText: "Some error occured!! Please try again.",
+        className: "alert-danger",
+      });
     }
   });
 });

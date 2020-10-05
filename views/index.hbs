@@ -22,6 +22,12 @@
 
     </header>
     <div class=" block pt-5 mt-5">
+        {{#if message}}
+        <div class=" alert {{className}}">
+            <p>{{messageText}}</p>
+
+        </div>
+        {{/if}}
         <div class=" row  ">
 
             <div class=" col-lg-3  jumbotron card" style="width:400px ;display:inline;">
@@ -91,8 +97,9 @@
             console.log("value", value);
 
             $.post('deleteTweet', { tweetId: value },
-                function (returnedData) {
-                    console.log(returnedData);
+                function (res) {
+                    // window.location.href = res.redirect;
+                    console.log(res);
                 });
         })
     })
